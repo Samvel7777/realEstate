@@ -2,7 +2,6 @@ package com.example.realestate.service;
 
 import com.example.realestate.model.CurrentUser;
 import com.example.realestate.model.User;
-import com.example.realestate.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +14,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> byEmail = userRepository.findByEmail(s);
+        Optional<User> byEmail = userService.findByEmail(s);
         if (!byEmail.isPresent()) {
             throw new UsernameNotFoundException("user with " + s + " dose not exits");
         }
